@@ -1,0 +1,147 @@
+# Pharma Time-Series Pipeline — Formative 1 (GRP7)
+
+End-to-end time-series pipeline for pharmaceutical daily sales forecasting: **EDA & modeling (Colab)**, **PostgreSQL + MongoDB**, **FastAPI CRUD**, and **prediction script**.
+
+## Project structure
+
+```
+Formative1_GRP7/
+├── app/                    # FastAPI application (Task 3)
+│   ├── main.py             # API entry point
+│   ├── config.py           # Environment configuration
+│   ├── database.py         # PostgreSQL + MongoDB connections
+│   ├── preprocessing.py    # Feature engineering (Task 4)
+│   ├── schemas.py          # Request/response models
+│   └── repositories/       # SQL and MongoDB data access
+├── notebooks/              # Google Colab notebook (Task 1)
+├── sql/                    # PostgreSQL schema, queries, ERD (Task 2)
+├── mongo/                  # MongoDB design + sample documents (Task 2)
+├── scripts/
+│   ├── load_data.py        # Load salesdaily.csv into both DBs
+│   └── run_queries.py      # Print example query results for report
+├── predict_pipeline.py     # End-to-end forecast script (Task 4)
+├── data/                   # Place salesdaily.csv here
+├── pharma_demand_model.pkl # Download from Colab after Task 1
+├── requirements.txt
+└── .env.example
+```
+
+## Prerequisites
+
+- Python 3.10+
+- Free **PostgreSQL** cloud instance (Supabase, Aiven, Neon, etc.)
+- Free **MongoDB Atlas** cluster
+- `salesdaily.csv` from [Kaggle Pharma Sales Data](https://www.kaggle.com/datasets/milanzdravkovic/pharma-sales-data)
+- `pharma_demand_model.pkl` from the Colab notebook (Task 1)
+
+## Setup
+
+### 1. Clone and install
+
+```bash
+git clone <your-repo-url>
+cd Formative1_GRP7
+python -m venv .venv
+.venv\Scripts\activate        # Windows
+pip install -r requirements.txt
+```
+
+### 2. Configure environment
+
+```bash
+copy .env.example .env
+# Edit .env with your PostgreSQL and MongoDB Atlas credentials
+```
+
+### 3. Add data files
+
+- Put `salesdaily.csv` in `data/`
+- Put `pharma_demand_model.pkl` in the project root (after running Colab)
+
+### 4. Initialize databases
+
+```bash
+python scripts/load_data.py
+```
+
+### 5. Run example queries (for PDF report screenshots)
+
+```bash
+python scripts/run_queries.py
+```
+
+### 6. Start the API
+
+```bash
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+Open **http://127.0.0.1:8000/docs** for interactive Swagger UI.
+
+## API endpoints (Task 3)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/health` | Check API + database connectivity |
+| POST | `/api/records` | Create record in **PostgreSQL + MongoDB** |
+| GET | `/api/records/{id}` | Get record by date (`YYYY-MM-DD`) or PostgreSQL id |
+| PUT | `/api/records/{id}` | Update record in both databases |
+| DELETE | `/api/records/{id}` | Delete from both databases |
+| GET | `/api/records/latest` | Latest timestamped record |
+| GET | `/api/records/range?start_date=&end_date=` | Records in date range |
+
+### Example: create a record
+
+```bash
+curl -X POST http://127.0.0.1:8000/api/records ^
+  -H "Content-Type: application/json" ^
+  -d "{\"sale_date\":\"2019-12-30\",\"categories\":{\"M01AB\":10,\"M01AE\":5,\"N02BA\":20,\"N02BE\":100,\"N05B\":15,\"N05C\":12,\"R03\":30,\"R06\":25}}"
+```
+
+## Prediction pipeline (Task 4)
+
+With the API running:
+
+```bash
+python predict_pipeline.py
+```
+
+Expected output:
+
+```
+Predicted N02BE demand for next day: 420.00 units
+```
+
+## Task checklist
+
+| Task | Location | Status |
+|------|----------|--------|
+| 1A–1C EDA & modeling | `notebooks/pharma_time_series_eda_modeling.ipynb` | Run in Colab |
+| 2A SQL schema + ERD | `sql/schema.sql`, `sql/ERD.md` | Ready |
+| 2B MongoDB design | `mongo/README.md`, `mongo/sample_documents.json` | Ready |
+| 2C Example queries | `sql/queries.sql`, `scripts/run_queries.py` | Ready |
+| 3 CRUD API | `app/main.py` | Ready |
+| 4 Forecast script | `predict_pipeline.py` | Ready |
+
+## Team workflow
+
+1. **Person A** — Run Colab, export model, write Task 1 report section
+2. **Person B** — Set up PostgreSQL (Supabase), run schema + queries
+3. **Person C** — Set up MongoDB Atlas, verify documents
+4. **Person D** — FastAPI testing, `predict_pipeline.py`, README
+
+Each member should make **at least 4 commits** with clear messages.
+
+## Troubleshooting
+
+| Issue | Fix |
+|-------|-----|
+| `Can't connect to PostgreSQL` | Check `.env` credentials; whitelist your IP on Supabase/Aiven |
+| `MongoDB SSL error` | Use full Atlas connection string with `mongodb+srv://` |
+| `Model not found` | Download `pharma_demand_model.pkl` from Colab |
+| `Not enough history` | Run `python scripts/load_data.py` first |
+| `404 on /api/records/latest` | Database is empty — load CSV data |
+
+## License
+
+Academic project — dataset © Milan Zdravković (CC BY-NC 4.0).

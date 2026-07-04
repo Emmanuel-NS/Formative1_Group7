@@ -1,0 +1,3 @@
+Experiment,Features Used,MAE,RMSE,R²,Best?
+Exp1: Random Forest (Lags + Calendar),Lags + Calendar,8.86,12.21,0.4368,
+Exp2: XGBoost (Lags + MA + Cross-Category),Lags + MA + Cross-Category,8.61,11.67,0.4855,✓

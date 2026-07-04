@@ -1,0 +1,36 @@
+[
+  {
+    "record_id": "2017-03-15",
+    "sale_date": "2017-03-15",
+    "total_demand": 1245.5,
+    "categories": {
+      "M01AB": 85.0,
+      "M01AE": 42.5,
+      "N02BA": 120.0,
+      "N02BE": 420.0,
+      "N05B": 95.0,
+      "N05C": 78.0,
+      "R03": 210.0,
+      "R06": 195.0
+    },
+    "source": "pharma_sales_daily",
+    "created_at": "2017-03-15T00:00:00Z"
+  },
+  {
+    "record_id": "2017-03-16",
+    "sale_date": "2017-03-16",
+    "total_demand": 1180.0,
+    "categories": {
+      "M01AB": 80.0,
+      "M01AE": 40.0,
+      "N02BA": 115.0,
+      "N02BE": 405.0,
+      "N05B": 90.0,
+      "N05C": 75.0,
+      "R03": 200.0,
+      "R06": 175.0
+    },
+    "source": "pharma_sales_daily",
+    "created_at": "2017-03-16T00:00:00Z"
+  }
+]

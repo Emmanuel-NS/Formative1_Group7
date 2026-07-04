@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Secrets & local config
+.env
+
+# Data (keep structure, not large CSVs)
+data/*.csv
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Notebook outputs
+outputs/
+.ipynb_checkpoints/
+
+# Logs
+*.log
