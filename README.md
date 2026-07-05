@@ -166,3 +166,6 @@ Each member should make **at least 4 commits** with clear messages.
 
 Academic project — dataset © Milan Zdravković (CC BY-NC 4.0).
 
+
+## Merge safety note
+- Docs-only changes; no code.
