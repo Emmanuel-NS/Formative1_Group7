@@ -126,6 +126,12 @@ The five analytical questions explored in Task 1B were:
 4. **7-day moving average**: How does a short rolling average smooth daily volatility?
 5. **Seasonal / monthly surges**: Are there months with clearly higher demand, and how do 7-day and 30-day moving averages compare?
 
+## Task 2 Draft Summary
+
+For Task 2, the same pharmaceutical sales dataset was modeled in two database formats. The PostgreSQL design uses a normalized structure with separate tables for daily records, category-level sales, and medicine references so the time series can be queried cleanly and expanded later. The MongoDB design stores each day as a single document with a nested `categories` object, which makes it easier to read or update a full daily snapshot at once.
+
+The database work also includes supporting artifacts for the report: an ERD for the relational model, SQL schema scripts, a MongoDB collection design, sample documents, and example queries for both systems. The main goal is to show how the same time-series data can support both relational and document-based storage patterns.
+
 ## Task checklist
 
 | Task | Location | Status |
@@ -159,3 +165,7 @@ Each member should make **at least 4 commits** with clear messages.
 ## License
 
 Academic project — dataset © Milan Zdravković (CC BY-NC 4.0).
+
+
+## Merge safety note
+- Docs-only changes; no code.
