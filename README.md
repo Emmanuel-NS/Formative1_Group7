@@ -112,6 +112,20 @@ Expected output:
 Predicted N02BE demand for next day: 420.00 units
 ```
 
+## Task 1A-1B Draft Summary
+
+The dataset used for this project is the Kaggle pharmaceutical daily sales time series. It spans roughly **2014 to 2019** and has **daily granularity** with one observation per calendar day. The target variable is **N02BE daily demand**, while the other ATC categories are used as supporting variables for analysis and feature engineering.
+
+Missing values and calendar gaps were handled by reindexing the data to a complete daily date range, applying **time-based linear interpolation** to numeric columns, and using **forward-fill** for any remaining edge cases. This was chosen to preserve the chronological structure of the series and keep the time index regular for lag and moving-average features.
+
+The five analytical questions explored in Task 1B were:
+
+1. **Long-term trend**: Is N02BE demand increasing or decreasing over time?
+2. **Cross-category correlation**: Do other ATC categories move together with N02BE demand?
+3. **Lag effects**: How strongly do 1-day, 3-day, 7-day, 14-day, and 30-day lags relate to today’s demand?
+4. **7-day moving average**: How does a short rolling average smooth daily volatility?
+5. **Seasonal / monthly surges**: Are there months with clearly higher demand, and how do 7-day and 30-day moving averages compare?
+
 ## Task checklist
 
 | Task | Location | Status |
