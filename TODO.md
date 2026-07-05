@@ -6,3 +6,6 @@
 - [ ] Commit #3: README — (placeholder) remaining doc additions for report alignment.
 
 
+
+- [x] Commit #2: README — (docs cleanup)
+- [x] Commit #3: README — (docs cleanup)
